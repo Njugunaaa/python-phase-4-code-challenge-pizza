@@ -26,10 +26,14 @@ def index():
 
 #returns alll the restaurants using the get request
 class Restaurants(Resource):
-    def get(self):
+     def get(self):
         restaurants = Restaurant.query.all()
-        return [rest.to_dict()
- for rest in restaurants], 200
+        result = [{
+            "id": r.id,
+            "name": r.name,
+            "address": r.address
+        } for r in restaurants]
+        return result, 200
 api.add_resource(Restaurants, "/restaurants")
 
 
