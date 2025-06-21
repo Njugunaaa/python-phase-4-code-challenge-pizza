@@ -83,8 +83,12 @@ api.add_resource(RestaurantByID, "/restaurants/<int:id>")
 class Pizzas(Resource):
     def get(self):
         pizzas = Pizza.query.all()
-        return [pizza.to_dict() for pizza in pizzas], 200
-
+        result = [{
+            "id": p.id,
+            "name": p.name,
+            "ingredients": p.ingredients
+        } for p in pizzas]
+        return result, 200
 
 api.add_resource(Pizzas, "/pizzas")
 
